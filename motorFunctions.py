@@ -2,21 +2,21 @@ from gpiozero import DigitalOutputDevice, PWMOutputDevice
 from config import (
     AIN1, AIN2, PWMA,
     BIN1, BIN2, PWMB,
-    SPEED, PWM_FREQUENCY
+    SPEED, PWM_FREQ
 )
 
 # Left motor: channel A
 ain1 = DigitalOutputDevice(AIN1, initial_value=False)
 ain2 = DigitalOutputDevice(AIN2, initial_value=False)
 pwma = PWMOutputDevice(
-    PWMA, frequency=PWM_FREQUENCY, initial_value=0
+    PWMA, frequency=PWM_FREQ, initial_value=0
 )
 
 # Right motor: channel B
 bin1 = DigitalOutputDevice(BIN1, initial_value=False)
 bin2 = DigitalOutputDevice(BIN2, initial_value=False)
 pwmb = PWMOutputDevice(
-    PWMB, frequency=PWM_FREQUENCY, initial_value=0
+    PWMB, frequency=PWM_FREQ, initial_value=0
 )
 
 
