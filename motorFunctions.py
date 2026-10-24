@@ -2,24 +2,47 @@ from machine import Pin, PWM
 from time import sleep
 import config as cfg
 
-left_ini1 = Pin(cfg.LEFT_IN1, Pin.out)
-left_ini2 = Pin(cfg.LEFT_IN2, Pin.out)
-right_ini1 = Pin(cfg.RIGHT_IN1, Pin.out)
-right_ini2 = Pin(cfg.RIGHT_IN2, Pin.out)
+ain1 = Pin(cfg.LEFT_IN1, Pin.out)
+ain2 = Pin(cfg.LEFT_IN2, Pin.out)
+bin1 = Pin(cfg.RIGHT_IN1, Pin.out)
+bin2 = Pin(cfg.RIGHT_IN2, Pin.out)
 
-left_pmw = PMW(Pin(cfg.LEFT_PMW), freq=cfg.PMW_FREQ)
-right_pmw = PMW(Pin(cfg.RIGHT_PMW), freq=cfg.PMW_FREQ)
+pmwa = PMW(Pin(cfg.LEFT_PMW), freq=cfg.PMW_FREQ)
+pmwb = PMW(Pin(cfg.RIGHT_PMW), freq=cfg.PMW_FREQ)
 
-left_stby = Pin(cfg.LEFT_STBY, Pin.out)
-right_stby = Pin(cfg.RIGHT_STBY, Pin.out)
+standby = Pin(cfg.STBY, Pin.OUT)
 
+standby.value(0)
+pmwa.duty_u16(0)
+pmwb.duty_u16(0)
 
-def forward(): return
+def set_motor(in1,in2,pmw,direction,speed):
+    speed = max(0,min(speed,65535))
 
-def backward(): return
+    pmw.duty_u16(0)
 
-def left(): return
+    if (direction == 1):
+        in1.value(1)
+        in2.value(0)
+    elif (direction == -1):
+        in1.value(0)
+        in2.value(1)
+    else:
+        in1.value(0)
+        in2.value(0)
+        return
 
-def right(): return
+    pmw.duty_u16(speed)
 
-def stop(): return
+def drive(left_direction,right_direction,speed=cfg.SPEED):
+    set_motor(ain1,ain2,pmwa,left_direction,speed)
+    set_motor(bin1,bin2,pmwb,right_direction,speed)
+    standby.value(1)
+
+def forward(): drive(1,1)
+
+def backward(): drive(-1,-1)
+
+def left(): drive(-1,1)
+
+def right(): drive(1,-1)
