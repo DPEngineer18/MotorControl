@@ -1,13 +1,10 @@
-LEFT_IN1 = 2
-LEFT_IN2 = 3
-LEFT_PMW = 4
+AIN1 = 27
+AIN2 = 22
+PMWA = 12
 
-RIGHT_IN1 = 6
-RIGHT_IN2 = 7
-RIGHT_PMW = 8
+BIN1 = 23
+BIN2 = 24
+PMWB = 13
 
-STBY = 9
-
+SPEED = 0.5 # Setting it up initially at 50% of the duty cycle
 PMW_FREQ = 1000
-SPEED = 30000
-
