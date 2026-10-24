@@ -45,19 +45,19 @@ def drive(left_direction, right_direction, speed=SPEED):
 
 
 def forward():
-    drive(1, 1)
-
-
-def backward():
-    drive(-1, -1)
-
-
-def turn_left():
     drive(-1, 1)
 
 
-def turn_right():
+def backward():
     drive(1, -1)
+
+
+def turn_left():
+    drive(-1, -1)
+
+
+def turn_right():
+    drive(1, 1)
 
 
 def stop():
